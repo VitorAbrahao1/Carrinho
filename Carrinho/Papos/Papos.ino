@@ -19,7 +19,7 @@ int ch1, ch2, ch3, ch4, ch5, ch6;   //variaveis dos canais
 int flag, pwmD, pwmE, pwmMax;
 float var_bat; //variavél de tensão da bateria
 
-void setup() {
+void setup() { //setar os pwm, ponte h e led como imput
   pinMode(PWM1, INPUT);pinMode(PWM2, INPUT);pinMode(PWM3, INPUT);pinMode(PWM4, INPUT);pinMode(PWM5, INPUT);pinMode(PWM6, INPUT);
   pinMode(phDf, OUTPUT);pinMode(phDt, OUTPUT);
   pinMode(phEf, OUTPUT);pinMode(phEt, OUTPUT);
@@ -34,7 +34,7 @@ void setup() {
   digitalWrite(ledE,HIGH);digitalWrite(ledD,HIGH);delay(300);
   digitalWrite(ledD,LOW);digitalWrite(ledE,LOW);
 
-  pwmMax = 255;
+  pwmMax = 255; //velocidade maxima
 }
 
 void loop() {
@@ -159,11 +159,11 @@ void Modo(){
   ch4 = constrain( map( ((pulseIn(PWM4, HIGH, 25000))- 1000), 80, 902, 0, 1000),0,1000);
   //ch6 = constrain( map( ((pulseIn(PWM6, HIGH, 25000))- 1000), -61, 1043, 0, 255),0,255);
   //pwmMax = ch6;
-
+  // SO UM ANALOGICO 
   if (ch5 >= 900) flag = 3;
   if (ch5 <= 100) flag = 2;
   if ((ch5 < 900) && (ch5 > 100)) flag = 1;
-
+     //qq eh flag?
 
     // controle de ligar e deligar o faról
       if (ch4 >= 900){
@@ -180,15 +180,15 @@ void Modo(){
 }
 
 void Bat_protecao(){
-  var_bat = analogRead(Bat);
-  var_bat = (var_bat*15)/1023;
+  var_bat = analogRead(Bat); //ler
+  var_bat = (var_bat*15)/1023; //proporção
 
   if(var_bat < 6.7){
     digitalWrite(ledE,LOW);digitalWrite(ledD,HIGH);delay(30);
     digitalWrite(ledD,LOW);digitalWrite(ledE,HIGH);delay(30);
     digitalWrite(ledE,LOW);
   }
-
+ //se for menor q 6,7 ele pisca os leds
 }
 
 void LeituraTotal_rc(){
